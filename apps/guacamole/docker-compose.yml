@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  guacamole:
+    image: oznu/guacamole:armhf # linuxserver/guacd
+    container_name: guacamole
+    ports:
+      - '8080:8080'
+    volumes:
+      - './config:/config'
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - EXTENSIONS=auth-ldap,auth-totp
+    restart: unless-stopped
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager

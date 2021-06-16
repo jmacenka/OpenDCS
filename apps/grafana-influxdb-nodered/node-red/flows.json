@@ -1,0 +1,690 @@
+[
+  {
+    "id": "7c9c8e0c.0914d",
+    "type": "tab",
+    "label": "MQTT to InfluxDB",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "d2f5fca9.ebf2a",
+    "type": "tab",
+    "label": "OPC UA",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "1e31a417.3ff2ec",
+    "type": "mqtt-broker",
+    "name": "mosquitto public",
+    "broker": "test.mosquitto.org",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  },
+  {
+    "id": "c954608e.0de48",
+    "type": "ui_tab",
+    "name": "OPC UA",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "6dba2d79.c51b24",
+    "type": "ui_group",
+    "name": "Items",
+    "tab": "c954608e.0de48",
+    "order": 2,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "e9d1e823.f4aea8",
+    "type": "ui_group",
+    "name": "Drilldown",
+    "tab": "c954608e.0de48",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "e87e32ad.81d03",
+    "type": "ui_base",
+    "theme": {
+      "name": "theme-light",
+      "lightTheme": {
+        "default": "#0094CE",
+        "baseColor": "#0094CE",
+        "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+        "edited": true,
+        "reset": false
+      },
+      "darkTheme": {
+        "default": "#097479",
+        "baseColor": "#097479",
+        "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+        "edited": false
+      },
+      "customTheme": {
+        "name": "Untitled Theme 1",
+        "default": "#4B7930",
+        "baseColor": "#4B7930",
+        "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+      },
+      "themeState": {
+        "base-color": {
+          "default": "#0094CE",
+          "value": "#0094CE",
+          "edited": false
+        },
+        "page-titlebar-backgroundColor": {
+          "value": "#0094CE",
+          "edited": false
+        },
+        "page-backgroundColor": {
+          "value": "#fafafa",
+          "edited": false
+        },
+        "page-sidebar-backgroundColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "group-textColor": {
+          "value": "#1bbfff",
+          "edited": false
+        },
+        "group-borderColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "group-backgroundColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "widget-textColor": {
+          "value": "#111111",
+          "edited": false
+        },
+        "widget-backgroundColor": {
+          "value": "#0094ce",
+          "edited": false
+        },
+        "widget-borderColor": {
+          "value": "#ffffff",
+          "edited": false
+        },
+        "base-font": {
+          "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+        }
+      },
+      "angularTheme": {
+        "primary": "indigo",
+        "accents": "blue",
+        "warn": "red",
+        "background": "grey"
+      }
+    },
+    "site": {
+      "name": "Node-RED Dashboard",
+      "hideToolbar": "false",
+      "allowSwipe": "false",
+      "lockMenu": "false",
+      "allowTempTheme": "true",
+      "dateFormat": "DD/MM/YYYY",
+      "sizes": {
+        "sx": 48,
+        "sy": 48,
+        "gx": 6,
+        "gy": 6,
+        "cx": 6,
+        "cy": 6,
+        "px": 0,
+        "py": 0
+      }
+    }
+  },
+  {
+    "id": "570bcde9.cede64",
+    "type": "OpcUa-Endpoint",
+    "endpoint": "opc.tcp://opcuademo.sterfive.com:26543",
+    "secpol": "None",
+    "secmode": "None",
+    "login": false
+  },
+  {
+    "id": "66226865.b0cc58",
+    "type": "OpcUa-Endpoint",
+    "endpoint": "opc.tcp://milo.digitalpetri.com:62541/milo",
+    "secpol": "None",
+    "secmode": "None",
+    "login": false
+  },
+  {
+    "id": "b7e34fdf.25dfb",
+    "type": "influxdb",
+    "hostname": "influxdb",
+    "port": "8086",
+    "protocol": "http",
+    "database": "mydb",
+    "name": "",
+    "usetls": false,
+    "tls": ""
+  },
+  {
+    "id": "d08de8e0.aa2868",
+    "type": "function",
+    "z": "7c9c8e0c.0914d",
+    "name": "MQTT to influxdb",
+    "func": "msg.payload = parseFloat(msg.payload);\nmsg.measurement = msg.topic;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 830,
+    "y": 120,
+    "wires": [["be52a002.aaafe"]]
+  },
+  {
+    "id": "157a91ed.49f6be",
+    "type": "mqtt in",
+    "z": "7c9c8e0c.0914d",
+    "name": "",
+    "topic": "/merakimv/Q2GV-J9X5-L8BU/light",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "1e31a417.3ff2ec",
+    "x": 180,
+    "y": 100,
+    "wires": [["799bf706.40e6c8"]]
+  },
+  {
+    "id": "35210ea2.cdf2f2",
+    "type": "function",
+    "z": "7c9c8e0c.0914d",
+    "name": "Parse LUX value",
+    "func": "msg.topic = \"LUX\"\nlet Obj = JSON.parse(msg.payload)\nmsg.payload = Obj.lux;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 590,
+    "y": 100,
+    "wires": [["d08de8e0.aa2868"]]
+  },
+  {
+    "id": "cb899b58.14d8d8",
+    "type": "mqtt in",
+    "z": "7c9c8e0c.0914d",
+    "name": "",
+    "topic": "sicurvia",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "1e31a417.3ff2ec",
+    "x": 90,
+    "y": 160,
+    "wires": [["274b9249.07f20e"]]
+  },
+  {
+    "id": "292b4738.dabd78",
+    "type": "function",
+    "z": "7c9c8e0c.0914d",
+    "name": "Parse Temp/Humid value",
+    "func": "let msg1 = {};\nlet msg2 = {};\nlet Obj = JSON.parse(msg.payload)\nmsg1.topic = \"Temperature\"\nmsg1.payload = Obj.temperature;\nmsg2.topic = \"Humidity\";\nmsg2.payload = Obj.humidity;\nreturn [msg1, msg2];",
+    "outputs": 2,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 570,
+    "y": 160,
+    "wires": [["d08de8e0.aa2868"], ["d08de8e0.aa2868"]]
+  },
+  {
+    "id": "7a435956.c05a08",
+    "type": "change",
+    "z": "d2f5fca9.ebf2a",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 320,
+    "y": 420,
+    "wires": [["74c6da85.73cd24", "ce0ae393.39db4", "90cf564a.a6a308"]]
+  },
+  {
+    "id": "b0c323e3.9568",
+    "type": "function",
+    "z": "d2f5fca9.ebf2a",
+    "name": "MQTT to influxdb",
+    "func": "msg.payload = parseFloat(msg.payload);\nmsg.measurement = msg.topic;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 970,
+    "y": 220,
+    "wires": [["f5afbc0c.74699"]]
+  },
+  {
+    "id": "7e20c1aa.b094f",
+    "type": "comment",
+    "z": "d2f5fca9.ebf2a",
+    "name": "Drill down to find relevant items",
+    "info": "",
+    "x": 170,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "43afe2b1.c15dfc",
+    "type": "comment",
+    "z": "d2f5fca9.ebf2a",
+    "name": "Subscribe to item",
+    "info": "",
+    "x": 120,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "c151b9d9.6d5e68",
+    "type": "comment",
+    "z": "d2f5fca9.ebf2a",
+    "name": "Make graphical output",
+    "info": "",
+    "x": 860,
+    "y": 440,
+    "wires": []
+  },
+  {
+    "id": "ad55fade.50bfe8",
+    "type": "comment",
+    "z": "d2f5fca9.ebf2a",
+    "name": "Write to InfluxDB",
+    "info": "",
+    "x": 960,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "51879249.d4d02c",
+    "type": "comment",
+    "z": "7c9c8e0c.0914d",
+    "name": "Collect random MQTT values",
+    "info": "",
+    "x": 170,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "b02145be.f0ba68",
+    "type": "comment",
+    "z": "7c9c8e0c.0914d",
+    "name": "Convert values for InfluxDB",
+    "info": "",
+    "x": 710,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "38532fa7.7d5f3",
+    "type": "comment",
+    "z": "7c9c8e0c.0914d",
+    "name": "Push values to InfluxDB",
+    "info": "",
+    "x": 820,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "1ad6797b.ead8e7",
+    "type": "comment",
+    "z": "7c9c8e0c.0914d",
+    "name": "!ATTENTION: Requires InfluxDB with Database!",
+    "info": "",
+    "x": 220,
+    "y": 320,
+    "wires": []
+  },
+  {
+    "id": "82673f6e.610b4",
+    "type": "comment",
+    "z": "7c9c8e0c.0914d",
+    "name": "curl -XPOST 'http://localhost:8086/query' --data-urlencode \"q=CREATE DATABASE BW\"",
+    "info": "",
+    "x": 340,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "b731c8e8.063818",
+    "type": "ui_chart",
+    "z": "d2f5fca9.ebf2a",
+    "name": "",
+    "group": "6dba2d79.c51b24",
+    "order": 4,
+    "width": 0,
+    "height": 0,
+    "label": "{{msg.topic}}",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": 1,
+    "removeOlderPoints": "1000",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e",
+      "#2ca02c",
+      "#98df8a",
+      "#d62728",
+      "#ff9896",
+      "#9467bd",
+      "#c5b0d5"
+    ],
+    "useOldStyle": false,
+    "outputs": 1,
+    "x": 950,
+    "y": 300,
+    "wires": [[]]
+  },
+  {
+    "id": "e3375cc0.55c68",
+    "type": "ui_text",
+    "z": "d2f5fca9.ebf2a",
+    "group": "6dba2d79.c51b24",
+    "order": 4,
+    "width": 0,
+    "height": 0,
+    "name": "Return value",
+    "label": "Value",
+    "format": "{{msg.payload}}",
+    "layout": "row-left",
+    "x": 830,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "90cf564a.a6a308",
+    "type": "ui_text",
+    "z": "d2f5fca9.ebf2a",
+    "group": "6dba2d79.c51b24",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "name": "Repeat search item",
+    "label": "Item-Lookup: ",
+    "format": "{{msg.topic}}",
+    "layout": "row-left",
+    "x": 610,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "9d9bd131.765bf",
+    "type": "ui_text",
+    "z": "d2f5fca9.ebf2a",
+    "group": "6dba2d79.c51b24",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "name": "Return topic",
+    "label": "Topic",
+    "format": "{{msg.topic}}",
+    "layout": "row-left",
+    "x": 830,
+    "y": 400,
+    "wires": []
+  },
+  {
+    "id": "dde3b054.a26a4",
+    "type": "ui_text_input",
+    "z": "d2f5fca9.ebf2a",
+    "name": "Input search item",
+    "label": "Item to browse",
+    "tooltip": "ns=0;i=85",
+    "group": "6dba2d79.c51b24",
+    "order": 1,
+    "width": "6",
+    "height": "2",
+    "passthru": false,
+    "mode": "text",
+    "delay": "500",
+    "topic": "",
+    "x": 130,
+    "y": 420,
+    "wires": [["7a435956.c05a08"]]
+  },
+  {
+    "id": "2471bf3b.bb16f",
+    "type": "ui_template",
+    "z": "d2f5fca9.ebf2a",
+    "group": "e9d1e823.f4aea8",
+    "name": "OPC UA Drilldown",
+    "order": 0,
+    "width": "6",
+    "height": "12",
+    "format": "<div layout=\"row\" layout-align=\"space-between\">\n    <select ng-model=\"item\" ng-options=\"items.item.displayName.text for items in msg.payload\">\n        <option value=\"\"> -- Back to Root -- </option>\n    </select>\n</div>\n\nClick to browse:\n<div layout=\"row\" layout-align=\"space-between\">\n    <button ng-click=\"send({payload: {actiontype:'browse', root: item}})\">Browse</button>\n</div>\n\n\n<div layout=\"row\" layout-align=\"space-between\">\n    <ul>\n        <li ng-repeat=\"items in msg.payload\">\n            {{items.item.displayName.text}} ==> {{items.item.nodeId}}\n        </li>\n    </ul>\n</div>\n",
+    "storeOutMessages": false,
+    "fwdInMessages": false,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "x": 130,
+    "y": 140,
+    "wires": [["462f2f89.6cc8"]]
+  },
+  {
+    "id": "74c6da85.73cd24",
+    "type": "OpcUa-Client",
+    "z": "d2f5fca9.ebf2a",
+    "endpoint": "66226865.b0cc58",
+    "action": "subscribe",
+    "deadbandtype": "a",
+    "deadbandvalue": 1,
+    "time": "1",
+    "timeUnit": "s",
+    "certificate": "n",
+    "localfile": "",
+    "securitymode": "None",
+    "securitypolicy": "None",
+    "name": "OPC Subscribe",
+    "x": 620,
+    "y": 300,
+    "wires": [["f3d3d4a1.9507b8"]]
+  },
+  {
+    "id": "ce0ae393.39db4",
+    "type": "OpcUa-Client",
+    "z": "d2f5fca9.ebf2a",
+    "endpoint": "66226865.b0cc58",
+    "action": "read",
+    "deadbandtype": "a",
+    "deadbandvalue": 1,
+    "time": "1",
+    "timeUnit": "s",
+    "certificate": "n",
+    "localfile": "",
+    "securitymode": "None",
+    "securitypolicy": "None",
+    "name": "OPC Read",
+    "x": 610,
+    "y": 360,
+    "wires": [["e3375cc0.55c68", "9d9bd131.765bf"]]
+  },
+  {
+    "id": "462f2f89.6cc8",
+    "type": "OpcUa-Browser",
+    "z": "d2f5fca9.ebf2a",
+    "endpoint": "66226865.b0cc58",
+    "item": "",
+    "datatype": "",
+    "topic": "",
+    "items": [],
+    "x": 130,
+    "y": 200,
+    "wires": [["2471bf3b.bb16f"]]
+  },
+  {
+    "id": "be52a002.aaafe",
+    "type": "influxdb out",
+    "z": "7c9c8e0c.0914d",
+    "influxdb": "b7e34fdf.25dfb",
+    "name": "",
+    "measurement": "",
+    "precision": "",
+    "retentionPolicy": "",
+    "x": 850,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "f5afbc0c.74699",
+    "type": "influxdb out",
+    "z": "d2f5fca9.ebf2a",
+    "influxdb": "b7e34fdf.25dfb",
+    "name": "",
+    "measurement": "",
+    "precision": "",
+    "retentionPolicy": "",
+    "database": "",
+    "retentionPolicyV18Flux": "",
+    "org": "",
+    "bucket": "",
+    "x": 970,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "799bf706.40e6c8",
+    "type": "throttle",
+    "z": "7c9c8e0c.0914d",
+    "name": "500ms",
+    "throttleType": "time",
+    "timeLimit": "500",
+    "timeLimitType": "milliseconds",
+    "countLimit": 0,
+    "blockSize": 0,
+    "locked": false,
+    "x": 410,
+    "y": 100,
+    "wires": [["35210ea2.cdf2f2"]]
+  },
+  {
+    "id": "274b9249.07f20e",
+    "type": "throttle",
+    "z": "7c9c8e0c.0914d",
+    "name": "500ms",
+    "throttleType": "time",
+    "timeLimit": "500",
+    "timeLimitType": "milliseconds",
+    "countLimit": 0,
+    "blockSize": 0,
+    "locked": false,
+    "x": 230,
+    "y": 160,
+    "wires": [["292b4738.dabd78"]]
+  },
+  {
+    "id": "f3d3d4a1.9507b8",
+    "type": "throttle",
+    "z": "d2f5fca9.ebf2a",
+    "name": "100ms",
+    "throttleType": "time",
+    "timeLimit": "100",
+    "timeLimitType": "milliseconds",
+    "countLimit": 0,
+    "blockSize": 0,
+    "locked": false,
+    "x": 810,
+    "y": 300,
+    "wires": [["b731c8e8.063818", "b0c323e3.9568"]]
+  },
+  {
+    "id": "69232285.c385fc",
+    "type": "http request",
+    "z": "7c9c8e0c.0914d",
+    "name": "",
+    "method": "POST",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "http://influxdb:8086/query?q={{{query}}}&format=json",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 490,
+    "y": 400,
+    "wires": [["dfed0cfa.30d4"]]
+  },
+  {
+    "id": "dfed0cfa.30d4",
+    "type": "debug",
+    "z": "7c9c8e0c.0914d",
+    "name": "Result of influxdb-query",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 810,
+    "y": 400,
+    "wires": []
+  },
+  {
+    "id": "1f00ab54.7ebc45",
+    "type": "inject",
+    "z": "7c9c8e0c.0914d",
+    "name": "CREATE DATABASE mydb",
+    "props": [
+      {
+        "p": "query",
+        "v": "CREATE DATABASE mydb",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "topic": "",
+    "x": 170,
+    "y": 400,
+    "wires": [["69232285.c385fc"]]
+  }
+]

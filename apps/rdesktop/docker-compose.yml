@@ -1,0 +1,27 @@
+version: '2.1'
+services:
+  rdesktop:
+    image: ghcr.io/linuxserver/rdesktop:mate-focal
+    container_name: rdesktop
+    privileged: true #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock #optional
+      - rdesktop-config:/config #optional
+    # ports:
+    #   - 3389:3389
+    shm_size: '1gb' #optional
+    restart: unless-stopped
+
+#The Default USERNAME and PASSWORD is: abc/abc
+
+volumes:
+  rdesktop-config:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager

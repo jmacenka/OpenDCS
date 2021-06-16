@@ -1,0 +1,24 @@
+version: '2.1'
+services:
+  rsnapshot:
+    image: ghcr.io/linuxserver/rsnapshot
+    container_name: rsnapshot
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - rsnapshot-config:/config
+      - rsnapshot-snapshots:/.snapshots #optional
+      - rsnapshot-data:/data #optional
+    restart: unless-stopped
+
+volumes:
+  rsnapshot-config:
+  rsnapshot-snapshots:
+  rsnapshot-data:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager

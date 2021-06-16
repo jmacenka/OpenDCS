@@ -1,0 +1,52 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb
+    #image: hypriot/rpi-influxdb
+    container_name: influxdb
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+    # ports:
+    #   - 8086:8086
+    environment:
+      - PGID=1001
+      - PUID=1001
+    restart: always
+
+  grafana:
+    image: 'grafana/grafana:latest'
+    container_name: grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    # ports:
+    #   - 3000:3000
+    environment:
+      - PGID=1001
+      - PUID=1001
+    restart: always
+    depends_on:
+      - influxdb
+
+  node-red:
+    # image: nodered/node-red:latest
+    build: ./node-red/
+    container_name: node-red
+    volumes:
+      - node-red-data/:/data/
+    #  - ./node-red/flows.json:/data/flows.json
+    # ports:
+    #   - 1880:1880
+    environment:
+      - PGID=1001
+      - PUID=1001
+    restart: always
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager
+
+volumes:
+  influxdb-data:
+  node-red-data:
+  grafana-data:

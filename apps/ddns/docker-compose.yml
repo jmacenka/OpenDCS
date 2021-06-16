@@ -1,0 +1,10 @@
+version: "2"
+services:
+  cloudflare-ddns:
+    image: oznu/cloudflare-ddns:latest
+    restart: always
+    environment:
+      - API_KEY=${API_KEY} # Requires your CloudFlare API-Key, see https://youtu.be/b83S_N1kkJM?t=1721
+      - ZONE=macenka.de
+#      - SUBDOMAIN=admin
+      - PROXIED=true

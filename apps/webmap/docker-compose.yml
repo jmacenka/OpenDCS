@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  webmap:
+    container_name: webmap
+    image: secureforest/webmap
+    volumes:
+      - './data:/opt/xml'
+    environment:
+      PGID: 1000
+      PUID: 1000
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager

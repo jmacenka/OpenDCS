@@ -1,0 +1,29 @@
+# Ebook and PDF Reader
+version: '2.1'
+services:
+  ubooquity:
+    image: ghcr.io/linuxserver/ubooquity
+    container_name: ubooquity
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - MAXMEM=<maxmem>
+    volumes:
+      - ubooquity-config:/config
+      - ubooquity-books:/books
+      - ubooquity-files:/files
+    ports:
+      - 2202:2202
+      - 2203:2203
+    restart: unless-stopped
+
+volumes:
+  ubooquity-config:
+  ubooquity-books:
+  ubooquity-files:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager

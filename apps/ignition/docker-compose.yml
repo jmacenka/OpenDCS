@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  ignition:
+    image: cirruslink/ignition-edge-mqtt-linux-arm32v7:latest
+    container_name: ignition
+    ports:
+      - '10022:22'
+      - '10080:80'
+      - '10443:443'
+      - '18000:8000'
+      - '18043:8043'
+      - '18060:8060'
+      - '18080:8080'
+    volumes:
+      - ignition-bin:/bin
+      - ignition-data:/opt/ignition
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - DEBIAN_FRONTEND=interactive
+      - USER=root
+    restart: always
+
+volumes:
+  ignition-bin:
+  ignition-data:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager
